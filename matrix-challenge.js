@@ -59,7 +59,7 @@ function cyclotron(particle, size) {
 }
 
 // test cases
-cyclotron('p', 4); // proton
+// cyclotron('p', 4); // proton
 // cyclotron('e', 4); // electron
 // cyclotron('n', 4); // neutron
 // cyclotron('', 4); // without particle
