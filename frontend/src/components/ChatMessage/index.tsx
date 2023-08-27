@@ -16,7 +16,9 @@ export default function index({ chatHistory }: IChatMessageProps) {
 
 						return(
 							<div key={index} className={`${styles.messageBox} ${auxClass}`}>
-								{chat.sender === 'user' ? <h4>👨‍💻 User</h4> : <h4>🤖 ChatBot</h4>}
+								{chat.sender === 'user' ?
+									<h4>👨‍💻 {chat?.userName ? chat.userName : 'User'}</h4>
+									: <h4>🤖 ChatBot</h4>}
 								<p>{chat.text}</p>
 								<h5 className={styles.textDate}>{chat.date}</h5>
 							</div>

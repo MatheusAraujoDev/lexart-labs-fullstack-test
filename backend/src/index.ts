@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 import http from 'http';
@@ -31,4 +32,4 @@ io.on('connection', (socket) => {
 	});
 });
 
-server.listen(PORT, () => console.log(`Server rodando na porta ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on ${PORT} 🚀`));

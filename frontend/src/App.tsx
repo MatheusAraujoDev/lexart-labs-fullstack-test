@@ -14,7 +14,7 @@ export interface IChatHistory {
 	step: number;
 	userName?: string;
 	password?: string;
-	isMenu: boolean;
+	isMenu?: boolean;
 	menuTitle?: string;
 	menuOptions?: Array<string>;
 }
