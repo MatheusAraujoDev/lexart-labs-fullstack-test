@@ -14,13 +14,12 @@ export const handleStepZero = (data: IChatHistory, socket: Socket<DefaultEventsM
 		id: randomUUID(),
 		date: new Date().toISOString(),
 		sender: 'bot',
-		text: 'Hello, to continue please sign in typing your username and password!',
+		text: 'Hello, to continue please sign in typing your username!',
 	};
 
 	for (let index = 0; index < messagesToStartConversation.length; index++) {
-		if(data.text.includes(messagesToStartConversation[index])) {
+		if(data.text.toLocaleLowerCase().includes(messagesToStartConversation[index].toLocaleLowerCase())) {
 			socket.emit(botEmitName, response);
-			console.log('response', response);
 			return;
 		}
 	}

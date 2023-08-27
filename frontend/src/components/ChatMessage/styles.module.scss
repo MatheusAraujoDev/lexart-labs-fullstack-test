@@ -1,7 +1,15 @@
 .messageBox {
   word-wrap: break-word;
   padding: 1rem 0.7rem 0 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .textDate {
+    margin-top: -1rem;
+  }
 }
+
 
 .user {
   background-color: #343541;

@@ -42,7 +42,7 @@ function App() {
 		event.preventDefault();
 
 		if(message.trim() === '') {
-			alert('Escreve algo!');
+			alert('Please type something!');
 			return;
 		}
 
@@ -53,7 +53,9 @@ function App() {
 				sender: 'user',
 				step: chatHistory[chatHistory.length - 1].step,
 				date: new Date().toISOString(),
-				textType: 'text',
+				textType: chatHistory[chatHistory.length - 1].textType,
+				userName: chatHistory[chatHistory.length - 1]?.userName,
+				password: chatHistory[chatHistory.length - 1]?.password,
 				isMenu: false,
 			} : {
 				id: crypto.randomUUID(),
@@ -91,7 +93,7 @@ function App() {
 				)
 					: <>
 						<Chat chatHistory={chatHistory} />
-						<Input onSubmit={handleSubmit} />
+						<Input onSubmit={handleSubmit} textType={chatHistory[chatHistory.length - 1]?.textType} />
 					</>
 			}
       
