@@ -1,0 +1,33 @@
+.csvContainer {
+  width: 70%;
+  height: 75vh;
+  margin: 0 auto;
+  border: 2px solid #444654;
+  border-radius: 12px;
+}
+
+.csvExportAllContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.csvExportAll {
+  background-color: aliceblue;
+  color: black;
+  padding: 5px;
+  border-radius: 10px;
+
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  }
+}
