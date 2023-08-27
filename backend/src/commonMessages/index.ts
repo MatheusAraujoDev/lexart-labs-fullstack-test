@@ -24,3 +24,23 @@ export const errorAnswer = (data: IChatHistory) => {
 
 	return response;
 };
+
+const loansMessages: Record<string,string> = {
+	'do you want to apply for a loan?': '<a href="https://lexartlabs.com/">mensagem da opçao1</a>',
+	'loan conditions': '<a href="https://lexartlabs.com/">mensagem da opçao2</a>',
+	'help': '<a href="https://lexartlabs.com/">mensagem da opçao3</a>'
+};
+
+export const loans = (data: IChatHistory) => {
+	const text = loansMessages[data.text.toLowerCase()];
+
+	const response: IChatHistory = {
+		...data,
+		id: randomUUID(),
+		date: new Date().toISOString(),
+		sender: 'bot',
+		text,
+	};
+
+	return response;
+};

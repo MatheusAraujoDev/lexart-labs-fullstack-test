@@ -38,14 +38,18 @@ export const handleStepTwo = async (data: IChatHistory, socket: Socket<DefaultEv
 
 			return;
 		}
+
+		data.userId = user.id;
 	} else {
 		const hashPassword = await hash(data.text, 10);
-		await prisma.user.create({
+		const user = await prisma.user.create({
 			data: {
 				userName: data.userName!,
 				password: hashPassword,
 			}
 		});
+
+		data.userId = user.id;
 	}
   
 	const response: IChatHistory = {
@@ -55,7 +59,7 @@ export const handleStepTwo = async (data: IChatHistory, socket: Socket<DefaultEv
 		date: new Date().toISOString(),
 		sender: 'bot',
 		text: 'You are ready to continue. Type something like "loan" to get help about it, or "Goodbye" to quit conversation!',
-		userName: data.text,
+		userName: data.userName,
 		textType: 'text',
 	};
   

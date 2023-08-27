@@ -13,6 +13,7 @@ export interface IChatHistory {
 	date: string;
 	step: number;
 	userName?: string;
+	userId?: string;
 	password?: string;
 	isMenu?: boolean;
 	menuTitle?: string;
@@ -21,7 +22,15 @@ export interface IChatHistory {
 
 function App() {
 	const [showCsvTab, setShowCsvTab] = useState(false);
-	const [chatHistory, setChatHistory] = useState<IChatHistory[]>([]);
+	const [chatHistory, setChatHistory] = useState<IChatHistory[]>([{
+		id: crypto.randomUUID(),
+		date: new Date().toISOString(),
+		sender: 'bot',
+		step: 0,
+		textType: 'text',
+		text: 'Send your first message!',
+		isMenu: false,
+	}]);
 
 	useEffect(() => {
 		socket.on('connect', () => {
@@ -32,11 +41,38 @@ function App() {
 			setChatHistory((prev) => [...prev, data]);
 		});
 
+		socket.on('bot:goodbye', (data: IChatHistory) => {
+			setChatHistory((prev) => [...prev, data]);
+			socket.emit('system:save-db', chatHistory);
+		});
+
 		return () => {
 			socket.off('connect');
 			socket.off('bot:message');
 		};
 	}, []);
+
+	function handleMenuSubmit(value: string) {
+		const data: IChatHistory = {
+			id: crypto.randomUUID(),
+			text: value,
+			sender: 'user',
+			step: chatHistory[chatHistory.length - 1].step,
+			date: new Date().toISOString(),
+			textType: chatHistory[chatHistory.length - 1].textType,
+			userName: chatHistory[chatHistory.length - 1]?.userName,
+			userId: chatHistory[chatHistory.length - 1]?.userId,
+			password: chatHistory[chatHistory.length - 1]?.password,
+			isMenu: false,
+		};
+
+		setChatHistory((prev) => [...prev, {
+			...data,
+			text: data.textType === 'password' ? data.text.replace(/./g, '*') : data.text,
+		}]);
+
+		socket.emit('user:message', data);
+	}
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>, message: string) {
 		event.preventDefault();
@@ -46,26 +82,18 @@ function App() {
 			return;
 		}
 
-		const data: IChatHistory = chatHistory.length ?
-			{
-				id: crypto.randomUUID(),
-				text: message,
-				sender: 'user',
-				step: chatHistory[chatHistory.length - 1].step,
-				date: new Date().toISOString(),
-				textType: chatHistory[chatHistory.length - 1].textType,
-				userName: chatHistory[chatHistory.length - 1]?.userName,
-				password: chatHistory[chatHistory.length - 1]?.password,
-				isMenu: false,
-			} : {
-				id: crypto.randomUUID(),
-				text: message,
-				sender: 'user',
-				step: 0,
-				date: new Date().toISOString(),
-				textType: 'text',
-				isMenu: false,
-			};
+		const data: IChatHistory = {
+			id: crypto.randomUUID(),
+			text: message,
+			sender: 'user',
+			step: chatHistory[chatHistory.length - 1].step,
+			date: new Date().toISOString(),
+			textType: chatHistory[chatHistory.length - 1].textType,
+			userName: chatHistory[chatHistory.length - 1]?.userName,
+			userId: chatHistory[chatHistory.length - 1]?.userId,
+			password: chatHistory[chatHistory.length - 1]?.password,
+			isMenu: false,
+		};
 
 		setChatHistory((prev) => [...prev, {
 			...data,
@@ -92,7 +120,10 @@ function App() {
 					<ExportData />
 				)
 					: <>
-						<Chat chatHistory={chatHistory} />
+						<Chat
+							chatHistory={chatHistory}
+							handleOptionClick={(value) => handleMenuSubmit(value)}
+						/>
 						<Input onSubmit={handleSubmit} textType={chatHistory[chatHistory.length - 1]?.textType} />
 					</>
 			}

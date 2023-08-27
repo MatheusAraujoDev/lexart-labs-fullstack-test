@@ -4,12 +4,16 @@ import { IChatHistory } from '../../App';
 
 interface IChatProps {
   chatHistory: IChatHistory[];
+	handleOptionClick: (value: string) => void;
 }
 
-export default function index({ chatHistory } : IChatProps) {
+export default function index({ chatHistory, handleOptionClick } : IChatProps) {
 	return (
 		<div className={styles.chatMessages}>
-			<ChatMessage chatHistory={chatHistory} />
+			<ChatMessage
+				chatHistory={chatHistory}
+				handleOptionClick={(param) => handleOptionClick(param)}
+			/>
 		</div>
 	);
 }

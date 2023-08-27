@@ -6,6 +6,7 @@ export interface IChatHistory {
 	date: string;
 	step: number;
 	userName?: string;
+	userId?: string;
 	password?: string;
 	isMenu?: boolean;
 	menuTitle?: string;
@@ -13,3 +14,5 @@ export interface IChatHistory {
 }
 
 export const botEmitName = 'bot:message';
+export const botEmitGoodBye = 'bot:goodbye';
+export const systemEmitSaveDb = 'system:save-db';
