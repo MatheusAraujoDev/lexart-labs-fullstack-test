@@ -22,6 +22,7 @@ export interface IChatHistory {
 
 function App() {
 	const [showCsvTab, setShowCsvTab] = useState(false);
+	const [isChatFinished, setIsChatFinished] = useState(false);
 	const [chatHistory, setChatHistory] = useState<IChatHistory[]>([{
 		id: crypto.randomUUID(),
 		date: new Date().toISOString(),
@@ -32,7 +33,7 @@ function App() {
 		isMenu: false,
 	}]);
 
-	useEffect(() => {
+	useEffect(() => {		
 		socket.on('connect', () => {
 			console.log('Connected with server socket.io');
 		});
@@ -42,15 +43,26 @@ function App() {
 		});
 
 		socket.on('bot:goodbye', (data: IChatHistory) => {
+			setIsChatFinished(true);
 			setChatHistory((prev) => [...prev, data]);
-			socket.emit('system:save-db', chatHistory);
 		});
 
 		return () => {
 			socket.off('connect');
 			socket.off('bot:message');
+			socket.off('bot:goodbye');
 		};
 	}, []);
+
+	useEffect(() => {
+		if(isChatFinished) {
+			socket.emit('system:save-db', {
+				history: chatHistory,
+				userId: chatHistory[chatHistory.length - 1].userId
+			});
+		}
+		
+	}, [chatHistory]);
 
 	function handleMenuSubmit(value: string) {
 		const data: IChatHistory = {
@@ -109,7 +121,15 @@ function App() {
 
 			<div className='csv-button-container'>
 				<button className='csv-button'
-					onClick={() => setShowCsvTab(!showCsvTab)}
+					onClick={() => {
+						if(!isChatFinished) {
+							alert('You have not finished your Chat yet!');
+							return;
+						}
+
+						setShowCsvTab(!showCsvTab);
+
+					}}
 				>
 					{showCsvTab ? 'VOLTAR' : 'EXPORT CSV'}
 				</button>

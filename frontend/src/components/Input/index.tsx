@@ -10,7 +10,6 @@ interface IPropsInput {
 export default function Input({ onSubmit, textType }: IPropsInput) {
 	const [message, setMessage] = useState('');
 
-
 	return (
 		<form
 			className={styles.inputContainer}

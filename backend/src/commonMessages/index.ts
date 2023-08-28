@@ -26,9 +26,9 @@ export const errorAnswer = (data: IChatHistory) => {
 };
 
 const loansMessages: Record<string,string> = {
-	'do you want to apply for a loan?': '<a href="https://lexartlabs.com/">mensagem da opçao1</a>',
-	'loan conditions': '<a href="https://lexartlabs.com/">mensagem da opçao2</a>',
-	'help': '<a href="https://lexartlabs.com/">mensagem da opçao3</a>'
+	'do you want to apply for a loan?': '<a href="https://lexartlabs.com/" target="_blank">Answer for option 1</a>',
+	'loan conditions': '<a href="https://lexartlabs.com/" target="_blank">Answer for option 2</a>',
+	'help': '<a href="https://lexartlabs.com/" target="_blank">Answer for option 3</a>'
 };
 
 export const loans = (data: IChatHistory) => {

@@ -13,6 +13,11 @@ export interface IChatHistory {
 	menuOptions?: Array<string>;
 }
 
+export interface IDatabaseSaveChat {
+	history: IChatHistory[];
+	userId: string;
+}
+
 export const botEmitName = 'bot:message';
 export const botEmitGoodBye = 'bot:goodbye';
 export const systemEmitSaveDb = 'system:save-db';

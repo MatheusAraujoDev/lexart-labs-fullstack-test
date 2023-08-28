@@ -27,6 +27,7 @@ export const handleStepThree = async (data: IChatHistory, socket: Socket<Default
 		};
 
 		socket.emit(botEmitGoodBye, response);
+		return;
 	}
 
 	if(menuOptions.includes(data.text)) {
