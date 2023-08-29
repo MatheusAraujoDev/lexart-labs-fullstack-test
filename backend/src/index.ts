@@ -13,15 +13,17 @@ import { unlink, writeFile } from 'fs/promises';
 
 const PORT = 3001;
 const app = express();
+app.use(express.json());
+app.use(cors({
+	origin: '*'
+}));
 const server = http.createServer(app);
+
 const io = new Server(server, {
 	cors: {
 		origin: '*'
 	}
 });
-
-app.use(cors());
-app.use(express.json());
 
 io.on('connection', (socket) => {
 	console.log('New user connected!');
