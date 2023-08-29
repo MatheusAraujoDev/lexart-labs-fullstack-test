@@ -1,4 +1,5 @@
 import { IChatHistory } from '../../App';
+import { formatDate } from '../../utils';
 import Menu from '../Menu';
 import styles from './styles.module.scss';
 
@@ -8,19 +9,6 @@ interface IChatMessageProps {
 }
 
 export default function index({ chatHistory, handleOptionClick }: IChatMessageProps) {
-
-	function formatDate(date: string) {
-		const d = new Date(date);
-		d.setHours(d.getHours() - 3);
-
-		const [isoDate, timeWithMS] = d.toISOString().split('T');
-
-		const [year, month, day] = isoDate.split('-');
-		const [time] = timeWithMS.split('.');
-		
-		return `${month}/${day}/${year} ${time}`;
-	}
-
 	return (
 		<>
 			{

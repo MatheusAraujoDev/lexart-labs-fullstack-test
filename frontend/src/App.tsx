@@ -4,6 +4,7 @@ import Chat from './components/Chat';
 import Input from './components/Input';
 import ExportData from './components/ExportData';
 import { socket } from './socket';
+import Swal from 'sweetalert2';
 
 export interface IChatHistory {
 	id: string,
@@ -90,7 +91,9 @@ function App() {
 		event.preventDefault();
 
 		if(message.trim() === '') {
-			alert('Please type something!');
+			Swal.fire({
+				text: 'Please type something!',
+			});
 			return;
 		}
 
@@ -123,21 +126,23 @@ function App() {
 				<button className='csv-button'
 					onClick={() => {
 						if(!isChatFinished) {
-							alert('You have not finished your Chat yet!');
+							Swal.fire({
+								text: 'You have not finished your conversation yet! (to end it type "GoodBye")',
+								position: 'center'
+							});
 							return;
 						}
 
 						setShowCsvTab(!showCsvTab);
-
 					}}
 				>
-					{showCsvTab ? 'VOLTAR' : 'EXPORT CSV'}
+					{showCsvTab ? 'GO BACK' : 'EXPORT CSV'}
 				</button>
 			</div>
 
 			{
 				showCsvTab ? (
-					<ExportData />
+					<ExportData isChatFinished={isChatFinished} userId={chatHistory[chatHistory.length - 1].userId} />
 				)
 					: <>
 						<Chat

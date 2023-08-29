@@ -29,8 +29,8 @@ p {
   font-size: 1.5rem;
 }
 
-@media (max-width: 350px) {
+@media (max-width: 400px) {
   p {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 }

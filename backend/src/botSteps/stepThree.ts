@@ -16,7 +16,7 @@ export const handleStepThree = async (data: IChatHistory, socket: Socket<Default
 			id: randomUUID(),
 			date: new Date().toISOString(),
 			sender: 'bot',
-			text: 'You have left the chat, if you want to export your conversation click on the top right button "export CSV"!',
+			text: 'You have left the chat, if you want to export your conversation click on the top right button "EXPORT CSV"!',
 			userName: undefined,
 			password: undefined,
 			textType: 'text',

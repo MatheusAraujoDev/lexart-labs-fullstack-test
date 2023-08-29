@@ -71,12 +71,14 @@ app.get('/exportCSV/:historyId', async (req, res) => {
 	const history: IChatHistory[] = JSON.parse(result.history);
 
 	for (let index = 0; index < history.length; index++) {
-		await writeFile(filePath, `${history[index].text};${history[index].sender};${history[index].date}\n`, {
+		const text = `${history[index].text};${history[index].sender};${history[index].date}\n`;
+		const menu = `menu:${history[index].menuTitle};${history[index].sender};${history[index].date}\n`;
+		
+		await writeFile(filePath, history[index].text ? text : menu, {
 			flag: 'a+'
 		});
 	}
 
-	res.setHeader('Content-Disposition', `attachment; filename=Conversation ${result.user.userName} - ${result.createdAt.toISOString()}.csv`);
 	res.setHeader('Content-Type', 'text/csv');
 	res.on('finish', async () => {
 		await unlink(filePath);
@@ -95,6 +97,11 @@ app.get('/chatHistory/:userId', async (req, res) => {
 		select: {
 			id: true,
 			createdAt: true,
+			user: {
+				select: {
+					userName: true,
+				}
+			}
 		},
 		orderBy: {
 			createdAt: 'desc'
