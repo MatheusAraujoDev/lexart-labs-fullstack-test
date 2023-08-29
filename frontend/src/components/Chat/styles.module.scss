@@ -1,0 +1,14 @@
+.chatMessages {
+  width: 70%;
+  height: 75vh;
+  margin: 0 auto;
+  background-color: #444654;
+  border-radius: 12px 12px 0 0;
+  border: 2px solid #444654;
+  overflow-y: scroll;
+}
+
+.chatbotMessage {
+  background-color: #444654;
+  text-align: left;
+}

@@ -1,0 +1,33 @@
+.csvContainer {
+  width: 70%;
+  height: 75vh;
+  margin: 0 auto;
+  border: 2px solid #444654;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.csvPageTitle {
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.5rem;
+  color: #FBBC04;
+}
+
+.csvExportAllContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.csvCardContainer {
+  width: 90%;
+  height: 65vh;
+  margin: 0 auto;
+  overflow-y: scroll;
+}
+
+@media (max-width: 400px) {
+  .csvPageTitle {
+    font-size: 1.2rem;
+  }
+}

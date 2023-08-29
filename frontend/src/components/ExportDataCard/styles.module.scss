@@ -1,0 +1,21 @@
+.card {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  word-wrap: break-word;
+}
+
+.csvButton {
+  background-color: #202123;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #2A2B2F;
+  }
+}
