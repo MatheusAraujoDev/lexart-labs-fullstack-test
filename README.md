@@ -12,6 +12,8 @@
   - Env
   - SASS
   - Bcrypt
+  - Nginx
+  - Docker
 
 ## About the Project
 
