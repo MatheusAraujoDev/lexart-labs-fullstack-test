@@ -10,6 +10,8 @@ import { prisma } from './prisma';
 import path from 'path';
 import { randomUUID } from 'crypto';
 import { unlink, writeFile } from 'fs/promises';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger-config.json';
 
 const PORT = 3001;
 const app = express();
@@ -18,6 +20,8 @@ app.use(cors({
 	origin: '*'
 }));
 const server = http.createServer(app);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const io = new Server(server, {
 	cors: {

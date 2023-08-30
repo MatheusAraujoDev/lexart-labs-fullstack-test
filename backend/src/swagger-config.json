@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Chatbot API Docs",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/exportCSV/{historyId}": {
+      "get": {
+        "summary": "Export a report CSV for a chat history",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "historyId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the chat history"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Chat History Not Found!"
+          }
+        }
+      }
+    },
+    "/chatHistory/{userId}": {
+      "get": {
+        "summary": "Get chat history filtered by user ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response or an Empty array"
+          }
+        }
+      }
+    }
+  }
+}

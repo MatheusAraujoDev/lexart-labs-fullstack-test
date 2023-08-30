@@ -14,6 +14,7 @@
   - Bcrypt
   - Nginx
   - Docker
+  - Swagger
 
 ## About the Project
 
