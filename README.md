@@ -33,6 +33,9 @@ There are 2 challenges:
 
 ![Alt text](./assets/image-2.png)
 
+## API Swagger Documentation 📚
+[Swagger Link](https://matheusaraujo.site/api-docs/)
+
 ## Running the ChatBot project 🚀
   
   #### Clone the project for your machine.
